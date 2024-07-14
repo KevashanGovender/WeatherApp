@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Factory
 
 protocol WeatherService {
     func getCurrentWeather(lat: Double, lon: Double) async throws -> CurrentWeatherResponse
-    func getWeatherForecase(lat: Double, lon: Double) async throws -> WeatherForecastResponse
+    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForecastResponse
 }
 
 class WeatherServiceImpl: AsyncNetworkService, WeatherService {
@@ -19,10 +20,18 @@ class WeatherServiceImpl: AsyncNetworkService, WeatherService {
     private let successStatusRange = 200 ..< 300
     
     func getCurrentWeather(lat: Double, lon: Double) async throws -> CurrentWeatherResponse {
-        return try await get(endpoint: "units=metric&lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
+        return try await get(endpoint: "weather?units=metric&lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
     }
     
-    func getWeatherForecase(lat: Double, lon: Double) async throws -> WeatherForecastResponse {        
+    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForecastResponse {
         return try await get(endpoint: "forecast?units=metric&lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
+    }
+}
+
+extension Container {
+    var weatherService: Factory<WeatherService> {
+        Factory(self) {
+            WeatherServiceImpl()
+        }
     }
 }

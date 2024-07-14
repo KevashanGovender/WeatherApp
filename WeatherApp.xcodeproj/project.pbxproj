@@ -21,6 +21,11 @@
 		57751DB52C432B4B00AF5AE5 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57751DB42C432B4B00AF5AE5 /* WeatherService.swift */; };
 		57751DB72C43343200AF5AE5 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57751DB62C43343200AF5AE5 /* LocationService.swift */; };
 		57751DB92C4337E800AF5AE5 /* AsyncNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57751DB82C4337E800AF5AE5 /* AsyncNetworkService.swift */; };
+		5FB8B50E2C44549C001625EC /* WeatherInformationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B50D2C44549C001625EC /* WeatherInformationRepository.swift */; };
+		5FB8B5112C445511001625EC /* CurrentWeatherDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5102C445511001625EC /* CurrentWeatherDTO.swift */; };
+		5FB8B5152C4457A5001625EC /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB8B5142C4457A5001625EC /* Factory */; };
+		5FB8B5182C44593B001625EC /* WeatherForecastDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5172C44593B001625EC /* WeatherForecastDTO.swift */; };
+		5FB8B51A2C445BED001625EC /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5192C445BED001625EC /* LocationRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,11 @@
 		57751DB42C432B4B00AF5AE5 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		57751DB62C43343200AF5AE5 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		57751DB82C4337E800AF5AE5 /* AsyncNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncNetworkService.swift; sourceTree = "<group>"; };
+		5FB8B50D2C44549C001625EC /* WeatherInformationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInformationRepository.swift; sourceTree = "<group>"; };
+		5FB8B5102C445511001625EC /* CurrentWeatherDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherDTO.swift; sourceTree = "<group>"; };
+		5FB8B5172C44593B001625EC /* WeatherForecastDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastDTO.swift; sourceTree = "<group>"; };
+		5FB8B5192C445BED001625EC /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
+		5FB8B51B2C445E17001625EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB8B5152C4457A5001625EC /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +119,8 @@
 		57751D7F2C43260300AF5AE5 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				5FB8B51B2C445E17001625EC /* Info.plist */,
+				5FB8B50C2C44547A001625EC /* Repository */,
 				57751DAB2C4327A400AF5AE5 /* Model */,
 				57751DAA2C43279B00AF5AE5 /* Service */,
 				57751D802C43260300AF5AE5 /* WeatherAppApp.swift */,
@@ -160,8 +173,19 @@
 				57751DAE2C432A5100AF5AE5 /* WeatherForecastResponse.swift */,
 				57751DB02C432B1C00AF5AE5 /* Weather.swift */,
 				57751DB22C432B2E00AF5AE5 /* Main.swift */,
+				5FB8B5102C445511001625EC /* CurrentWeatherDTO.swift */,
+				5FB8B5172C44593B001625EC /* WeatherForecastDTO.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5FB8B50C2C44547A001625EC /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5FB8B50D2C44549C001625EC /* WeatherInformationRepository.swift */,
+				5FB8B5192C445BED001625EC /* LocationRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +204,9 @@
 			dependencies = (
 			);
 			name = WeatherApp;
+			packageProductDependencies = (
+				5FB8B5142C4457A5001625EC /* Factory */,
+			);
 			productName = WeatherApp;
 			productReference = 57751D7D2C43260300AF5AE5 /* WeatherApp.app */;
 			productType = "com.apple.product-type.application";
@@ -252,6 +279,9 @@
 				Base,
 			);
 			mainGroup = 57751D742C43260300AF5AE5;
+			packageReferences = (
+				5FB8B5122C44573B001625EC /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			productRefGroup = 57751D7E2C43260300AF5AE5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -297,12 +327,16 @@
 				57751DB32C432B2E00AF5AE5 /* Main.swift in Sources */,
 				57751DB92C4337E800AF5AE5 /* AsyncNetworkService.swift in Sources */,
 				57751DAF2C432A5100AF5AE5 /* WeatherForecastResponse.swift in Sources */,
+				5FB8B51A2C445BED001625EC /* LocationRepository.swift in Sources */,
 				57751DB72C43343200AF5AE5 /* LocationService.swift in Sources */,
+				5FB8B5112C445511001625EC /* CurrentWeatherDTO.swift in Sources */,
 				57751DAD2C43285000AF5AE5 /* CurrentWeatherResponse.swift in Sources */,
+				5FB8B50E2C44549C001625EC /* WeatherInformationRepository.swift in Sources */,
 				57751D832C43260300AF5AE5 /* ContentView.swift in Sources */,
 				57751D812C43260300AF5AE5 /* WeatherAppApp.swift in Sources */,
 				57751DB12C432B1C00AF5AE5 /* Weather.swift in Sources */,
 				57751DB52C432B4B00AF5AE5 /* WeatherService.swift in Sources */,
+				5FB8B5182C44593B001625EC /* WeatherForecastDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,11 +503,14 @@
 				DEVELOPMENT_TEAM = FARSV6438P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To display weather at your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -498,11 +535,14 @@
 				DEVELOPMENT_TEAM = FARSV6438P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To display weather at your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -632,6 +672,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5FB8B5122C44573B001625EC /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5FB8B5142C4457A5001625EC /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5FB8B5122C44573B001625EC /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 57751D752C43260300AF5AE5 /* Project object */;
 }

@@ -9,6 +9,27 @@ import Foundation
 
 struct WeatherForecastResponse: Codable {
     let list: [WeatherList]
+    
+    func toDto() throws -> WeatherForecastDTO {
+        guard !list.isEmpty else {
+            throw WeatherForecastResponseError.transformationError
+        }
+        
+        let weatherForecastDTO = WeatherForecastDTO(
+            weatherForecasts: list.map { weatherForecast in
+                DayForecast(
+                    date: weatherForecast.dt,
+                    weatherDescription: weatherForecast.weather.description,
+                    currentTemp: weatherForecast.main.temp,
+                    minTemp: weatherForecast.main.tempMin,
+                    maxTemp: weatherForecast.main.tempMax
+                )
+            }
+        )
+        
+        return weatherForecastDTO
+    }
+
 }
 
 struct WeatherList: Codable {
@@ -21,3 +42,6 @@ struct WeatherList: Codable {
     }
 }
 
+enum WeatherForecastResponseError: Error {
+    case transformationError
+}

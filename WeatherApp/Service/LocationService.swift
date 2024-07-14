@@ -7,14 +7,20 @@
 
 import Foundation
 import CoreLocation
+import Factory
 
 protocol LocationService {
+    func requestLocationPermission()
     func getLocationCords() throws -> (lat: Double, lon: Double)
 }
 
 struct LocationServiceImpl: LocationService {
     
     private let locationManager = CLLocationManager()
+    
+    func requestLocationPermission() {
+        locationManager.requestWhenInUseAuthorization()
+    }
     
     func getLocationCords() throws -> (lat: Double, lon: Double) {
         if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
@@ -28,6 +34,14 @@ struct LocationServiceImpl: LocationService {
         }
     }
     
+}
+
+extension Container {
+    var locationService: Factory<LocationService> {
+        Factory(self) {
+            LocationServiceImpl()
+        }
+    }
 }
 
 enum LocationServiceError: Error {
