@@ -26,6 +26,7 @@
 		5FB8B5152C4457A5001625EC /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB8B5142C4457A5001625EC /* Factory */; };
 		5FB8B5182C44593B001625EC /* WeatherForecastDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5172C44593B001625EC /* WeatherForecastDTO.swift */; };
 		5FB8B51A2C445BED001625EC /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5192C445BED001625EC /* LocationRepository.swift */; };
+		5FB8B5212C4468DB001625EC /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8B5202C4468DB001625EC /* DateUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		5FB8B5172C44593B001625EC /* WeatherForecastDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastDTO.swift; sourceTree = "<group>"; };
 		5FB8B5192C445BED001625EC /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		5FB8B51B2C445E17001625EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5FB8B5202C4468DB001625EC /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		57751D7F2C43260300AF5AE5 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				5FB8B51F2C4468CD001625EC /* Util */,
 				5FB8B51B2C445E17001625EC /* Info.plist */,
 				5FB8B50C2C44547A001625EC /* Repository */,
 				57751DAB2C4327A400AF5AE5 /* Model */,
@@ -186,6 +189,14 @@
 				5FB8B5192C445BED001625EC /* LocationRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		5FB8B51F2C4468CD001625EC /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				5FB8B5202C4468DB001625EC /* DateUtil.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +348,7 @@
 				57751DB12C432B1C00AF5AE5 /* Weather.swift in Sources */,
 				57751DB52C432B4B00AF5AE5 /* WeatherService.swift in Sources */,
 				5FB8B5182C44593B001625EC /* WeatherForecastDTO.swift in Sources */,
+				5FB8B5212C4468DB001625EC /* DateUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
