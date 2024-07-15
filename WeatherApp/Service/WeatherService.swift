@@ -24,7 +24,7 @@ class WeatherServiceImpl: AsyncNetworkService, WeatherService {
     }
     
     func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForecastResponse {
-        return try await get(endpoint: "forecast?units=metric&lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
+        return try await get(endpoint: "forecast?units=metric&cnt=5&lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
     }
 }
 

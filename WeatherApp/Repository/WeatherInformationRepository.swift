@@ -10,7 +10,7 @@ import Factory
 
 protocol WeatherInformationRepository {
     func getCurrentWeather(lat: Double, lon: Double) async throws -> CurrentWeatherDTO
-    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForcastDTO
+    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForecastDTO
     
 }
 
@@ -25,13 +25,21 @@ struct WeatherInformationRepositoryImpl: WeatherInformationRepository {
         return try response.toDto()
     }
     
-    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForcastDTO {
+    func getWeatherForecast(lat: Double, lon: Double) async throws -> WeatherForecastDTO {
         let response = try await weatherService.getWeatherForecast(lat: lat, lon: lon)
         
         return try response.toDto()
         
     }
 
+}
+
+extension Container {
+    var weatherInformationRepositoy: Factory<WeatherInformationRepository> {
+        Factory(self) {
+            WeatherInformationRepositoryImpl()
+        }
+    }
 }
 
 

@@ -12,8 +12,7 @@ struct DateUtil {
         let timeInterval = TimeInterval(unixDate)
         let date = Date(timeIntervalSince1970: timeInterval)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "EEEE h:mm a"
         return dateFormatter.string(from: date)
-        
     }
 }

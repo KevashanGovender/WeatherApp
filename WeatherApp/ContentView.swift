@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import Factory
 
 struct ContentView: View {
+    @ObservedObject var locationService = LocationService.shared
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Group {
+                if locationService.userLocation != nil {
+                    WeatherView()
+                } else {
+                    LocationPermissionRequestView()
+                }
+            }
         }
         .padding()
     }

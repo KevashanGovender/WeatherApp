@@ -16,7 +16,7 @@ struct WeatherForecastResponse: Codable {
         }
         
         let weatherForecastDTO = WeatherForecastDTO(
-            weatherForecasts: list.map { weatherForecast in
+            weatherForcasts: list.map { weatherForecast in
                 DayForecast(
                     date: weatherForecast.dt,
                     weatherDescription: weatherForecast.weather.description,

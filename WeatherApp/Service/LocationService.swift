@@ -9,42 +9,50 @@ import Foundation
 import CoreLocation
 import Factory
 
-protocol LocationService {
-    func requestLocationPermission()
-    func getLocationCords() throws -> (lat: Double, lon: Double)
-}
-
-struct LocationServiceImpl: LocationService {
-    
+class LocationService: NSObject, ObservableObject {
+        
     private let locationManager = CLLocationManager()
     
-    func requestLocationPermission() {
+    @Published var userLocation: CLLocation?
+    
+    public static let shared = LocationService()
+    
+    private override init() {
+        super.init()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = .leastNormalMagnitude
+        locationManager.startUpdatingLocation()
+    }
+    
+    func requestLocation() {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    func getLocationCords() throws -> (lat: Double, lon: Double) {
-        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
-            guard let location = locationManager.location else {
-                throw LocationServiceError.noLocationError
-            }
-            
-            return (location.coordinate.latitude, location.coordinate.longitude)
-        } else {
-            throw LocationServiceError.permissionNotGranted
+}
+
+extension LocationService: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            debugPrint("Location permission not determined")
+        case .restricted:
+            debugPrint("Location permission restricted")
+        case .denied:
+            debugPrint("Location permission denied")
+        case .authorizedAlways:
+            debugPrint("Location permission authorizedAlways")
+        case .authorizedWhenInUse:
+            debugPrint("Location permission authorizedWhenInUse")
+        case .authorized:
+            debugPrint("Location permission authorized")
+        @unknown default:
+            debugPrint("Location permission unknown default")
         }
     }
     
-}
-
-extension Container {
-    var locationService: Factory<LocationService> {
-        Factory(self) {
-            LocationServiceImpl()
-        }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let lastLocation = locations.last else { return }
+        self.userLocation = lastLocation
     }
-}
-
-enum LocationServiceError: Error {
-    case noLocationError
-    case permissionNotGranted
 }
