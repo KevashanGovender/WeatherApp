@@ -71,7 +71,8 @@ class WeatherViewModelTests: XCTestCase {
             XCTAssertEqual("", viewModel.weatherMinTemp)
             XCTAssertEqual("", viewModel.weatherMaxTemp)
             XCTAssertEqual("", viewModel.backgroundImage)
-            XCTAssertTrue(viewModel.showLoading)
+            XCTAssertFalse(viewModel.showLoading)
+            XCTAssertTrue(viewModel.showError)
         }
     }
     
@@ -105,5 +106,8 @@ class WeatherViewModelTests: XCTestCase {
         
         verify(mockWeatherInfoRepo, never()).getCurrentWeather(lat: any(), lon: any())
         verify(mockWeatherInfoRepo, never()).getWeatherForecast(lat: any(), lon: any())
+        
+        XCTAssertFalse(viewModel.showLoading)
+        XCTAssertTrue(viewModel.showError)
     }
 }

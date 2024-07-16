@@ -835,6 +835,24 @@ class MockWeatherViewModel: WeatherViewModel, Cuckoo.ClassMock {
             )
         }
     }
+    
+    override var showError: Bool {
+        get {
+            return cuckoo_manager.getter(
+                "showError",
+                superclassCall: super.showError,
+                defaultCall: __defaultImplStub!.showError
+            )
+        }
+        set {
+            cuckoo_manager.setter(
+                "showError",
+                value: newValue,
+                superclassCall: super.showError = newValue,
+                defaultCall: __defaultImplStub!.showError = newValue
+            )
+        }
+    }
 
     
     override func viewDidAppear() async {
@@ -906,6 +924,10 @@ class MockWeatherViewModel: WeatherViewModel, Cuckoo.ClassMock {
             return .init(manager: cuckoo_manager, name: "forecastItems")
         }
         
+        var showError: Cuckoo.ClassToBeStubbedProperty<MockWeatherViewModel,Bool> {
+            return .init(manager: cuckoo_manager, name: "showError")
+        }
+        
         func viewDidAppear() -> Cuckoo.ClassStubNoReturnFunction<()> {
             let matchers: [Cuckoo.ParameterMatcher<Void>] = []
             return .init(stub: cuckoo_manager.createStub(for: MockWeatherViewModel.self,
@@ -972,6 +994,10 @@ class MockWeatherViewModel: WeatherViewModel, Cuckoo.ClassMock {
         
         var forecastItems: Cuckoo.VerifyProperty<[ForecastItem]> {
             return .init(manager: cuckoo_manager, name: "forecastItems", callMatcher: callMatcher, sourceLocation: sourceLocation)
+        }
+        
+        var showError: Cuckoo.VerifyProperty<Bool> {
+            return .init(manager: cuckoo_manager, name: "showError", callMatcher: callMatcher, sourceLocation: sourceLocation)
         }
         
         
@@ -1066,6 +1092,13 @@ class WeatherViewModelStub:WeatherViewModel {
     override var forecastItems: [ForecastItem] {
         get {
             return DefaultValueRegistry.defaultValue(for: ([ForecastItem]).self)
+        }
+        set {}
+    }
+    
+    override var showError: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
         }
         set {}
     }

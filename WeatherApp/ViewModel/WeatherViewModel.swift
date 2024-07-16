@@ -61,6 +61,7 @@ class WeatherViewModel: ObservableObject {
     
     func viewDidAppear() async {
         guard let userLocation = LocationService.shared.userLocation else {
+            showLoading.toggle()
             showError.toggle()
             return
         }
@@ -87,6 +88,7 @@ class WeatherViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
+                showLoading.toggle()
                 showError.toggle()
             }
         }
@@ -108,6 +110,7 @@ class WeatherViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
+                showLoading.toggle()
                 showError.toggle()
             }
         }
