@@ -65,7 +65,9 @@ class WeatherViewModel: ObservableObject {
             return
         }
         
-        showError = false
+        await MainActor.run {
+            showError = false 
+        }
         await fetchCurrentWeather(userLocation: userLocation)
         await fetchWeatherForecast(userLocation: userLocation)
         
