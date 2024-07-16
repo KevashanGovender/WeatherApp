@@ -1,0 +1,11 @@
+output = "Tests/Generated/GeneratedMocks.swift"
+
+[modules.WeatherApp]
+output = "WeatherAppTests/Generated/GeneratedMocks+WeatherApp.swift"
+# Standard imports added to the generated file(s).
+imports = ["Foundation"]
+# @testable imports if needed.
+testableImports = ["WeatherApp"]
+sources = [
+    "WeatherApp/**/*.swift",
+]

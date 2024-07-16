@@ -19,6 +19,7 @@ class WeatherViewModel: ObservableObject {
     @Published var weatherMaxTemp: String = ""
     @Published var backgroundImage: String = ""
     @Published var forecastItems: [ForecastItem] = [ForecastItem]()
+    @Published var showError: Bool = false
     
     private let weatherIconMap: [String: String] = [
         "clear sky": "clear",
@@ -58,21 +59,22 @@ class WeatherViewModel: ObservableObject {
     
     
     
-    func viewDidAppear() {
+    func viewDidAppear() async {
         guard let userLocation = LocationService.shared.userLocation else {
-            print("Error no location")
+            showError.toggle()
             return
         }
         
-        fetchCurrentWeather(userLocation: userLocation)
-        fetchWeatherForecast(userLocation: userLocation)
+        showError = false
+        await fetchCurrentWeather(userLocation: userLocation)
+        await fetchWeatherForecast(userLocation: userLocation)
         
     }
     
-    func fetchCurrentWeather(userLocation: CLLocation) {
-        let _ = Task {
+    func fetchCurrentWeather(userLocation: CLLocation) async {
+        do {
             let weatherDto = try await weatherInfoRepo.getCurrentWeather(lat: userLocation.coordinate.latitude,
-                                                                      lon: userLocation.coordinate.longitude)
+                                                                         lon: userLocation.coordinate.longitude)
             await MainActor.run {
                 weatherDescription = weatherDescriptionMap[weatherDto.weatherDesc] ?? "SUNNY"
                 backgroundImage = backgroundImageMap[weatherDto.weatherDesc] ?? "forest_sunny"
@@ -81,13 +83,17 @@ class WeatherViewModel: ObservableObject {
                 weatherMinTemp = String(format: "%.1f\u{00B0}", weatherDto.minTemp)
                 showLoading.toggle()
             }
+        } catch {
+            await MainActor.run {
+                showError.toggle()
+            }
         }
     }
     
-    func fetchWeatherForecast(userLocation: CLLocation) {
-        let _ = Task {
+    func fetchWeatherForecast(userLocation: CLLocation) async {
+        do {
             let weatherForecastDto = try await weatherInfoRepo.getWeatherForecast(lat: userLocation.coordinate.latitude,
-                                                                                  lon: userLocation.coordinate.longitude)
+                                                                              lon: userLocation.coordinate.longitude)
             await MainActor.run {
                 forecastItems.removeAll()
                 for weatherForcast in weatherForecastDto.weatherForcasts {
@@ -97,6 +103,10 @@ class WeatherViewModel: ObservableObject {
                                                     temp: String(format: "%.1f\u{00B0}", weatherForcast.currentTemp))
                     forecastItems.append(forecastItem)
                 }
+            }
+        } catch {
+            await MainActor.run {
+                showError.toggle()
             }
         }
     }

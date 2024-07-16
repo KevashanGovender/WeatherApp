@@ -10,6 +10,10 @@ struct WeatherView: View {
             Color.green
                 .ignoresSafeArea()
             
+            ProgressView {
+                Text("LOADING")
+            }.opacity(viewModel.showLoading ? 1 : 0)
+            
             VStack(spacing: 0) {
                 ZStack {
                     Image(viewModel.backgroundImage)
@@ -74,7 +78,16 @@ struct WeatherView: View {
         }
         .ignoresSafeArea()
         .onAppear {
-            viewModel.viewDidAppear()
+            Task {
+                await viewModel.viewDidAppear()
+            }
+        }
+        .alert("An Error Occured", isPresented: $viewModel.showError) {
+            Button("Retry", role: .cancel) {
+                Task {
+                    await viewModel.viewDidAppear()
+                }
+            }
         }
     }
 }
